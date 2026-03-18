@@ -461,7 +461,7 @@ function rollDice() {
 }
 
 // ══════════════════════════════════════════
-// MODAL
+// MODAL q
 // ══════════════════════════════════════════
 function closeModal() { $("modal").classList.remove("show"); }
 
