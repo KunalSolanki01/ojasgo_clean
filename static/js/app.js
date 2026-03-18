@@ -471,7 +471,8 @@ function showHelp() {
   $("modalTitle").style.color = "var(--green)";
   $("modalText").innerHTML    =
     `OjasGo is a wellness companion — <em>not</em> a substitute for professional care.<br><br>
-     📞 <strong>iCall India:</strong> +91 9152987821<br>
+     📞 <strong>iCall India:</strong> +91 9511501034<br>
+     📧 <strong>Email:</strong> <a href="mailto:kunalsol2005@gmail.com">kunalsol2005@gmail.com</a><br>
      🏥 <strong>NIMHANS:</strong> nimhans.ac.in<br>
      💚 <strong>Vandrevala Foundation:</strong> 1860-2662-345<br><br>
      <em style="font-size:.8rem">All AI recommendations are for educational purposes only.</em>`;
