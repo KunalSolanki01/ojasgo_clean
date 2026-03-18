@@ -1,0 +1,12 @@
+{
+    "builds":[{
+        "src":"app.py",
+        "use":"@vercel/python"
+    }],
+    "roots":
+        [{
+            "src":"/(.*)",
+            "dest":"app.py"
+        }
+    ]
+}
