@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>OjasGo — Ayurvedic AI Sanctuary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}"/>
+</head>
+<body>
+
+<!-- ══════════ HEADER ══════════ -->
+<header class="header" id="header">
+  <div class="logo" id="logoBtn">
+    <div class="logo-om">
+      <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" width="36" height="36">
+        <defs>
+          <linearGradient id="omG" x1="0" y1="0" x2="44" y2="44" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#D4AF37"/>
+            <stop offset="60%" stop-color="#E65100"/>
+            <stop offset="100%" stop-color="#9B7265"/>
+          </linearGradient>
+        </defs>
+        <circle cx="22" cy="22" r="20" stroke="url(#omG)" stroke-width="1" fill="none" opacity="0.6"/>
+        <circle cx="22" cy="22" r="13" stroke="url(#omG)" stroke-width="0.5" fill="none" opacity="0.3"/>
+        <text x="22" y="30" text-anchor="middle" font-size="20" font-family="serif" fill="url(#omG)">ॐ</text>
+      </svg>
+    </div>
+    <span class="logo-text">Ojas<span class="logo-accent">Go</span></span>
+  </div>
+
+  <nav class="tabs" id="nav" style="display:none;">
+    <button class="neu-btn active" id="tab-vikalpa"  data-tab="vikalpa">Vikalpa</button>
+    <button class="neu-btn"        id="tab-raga"     data-tab="raga">Raga</button>
+    <button class="neu-btn"        id="tab-dharana"  data-tab="dharana">Dharana</button>
+    <button class="neu-btn"        id="tab-sadhana"  data-tab="sadhana">Sadhana</button>
+  </nav>
+
+  <div class="header-right">
+    <span class="sattva-badge" id="sattvaHeader" style="display:none;">✦ 0 Sattva</span>
+    <button class="theme-toggle" id="themeBtn" aria-label="Toggle theme">☀️</button>
+  </div>
+</header>
+
+<!-- ══════════ HERO ══════════ -->
+<section class="hero" id="hero">
+  <div class="hero-inner">
+    <div class="hero-om-symbol">ॐ</div>
+    <p class="hero-eyebrow">Raga Chikitsa · Ayurveda · Claude AI</p>
+    <h1 class="hero-shloka">Swasthasya Swasthya Rakshanam</h1>
+    <p class="hero-translation">Preserve the health of the healthy · Charaka Samhita</p>
+    <p class="hero-subtitle">
+      An AI-powered Ayurvedic sanctuary where 5,000 years of ancient wisdom meets modern intelligence — your personalised Digital Vaidya, always available.
+    </p>
+    <button class="hero-cta" id="enterBtn">Begin Your Journey ✦</button>
+    <div class="hero-pills">
+      <span class="hero-pill">Claude AI Powered</span>
+      <span class="hero-pill">13 Classical Ragas</span>
+      <span class="hero-pill">Four-Pillar Protocol</span>
+      <span class="hero-pill">Leela Board Game</span>
+      <span class="hero-pill">Flask Backend</span>
+    </div>
+    <div class="api-status" id="apiStatus">
+      <span class="api-dot" id="apiDot"></span>
+      <span id="apiStatusText">Checking Claude AI connection…</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ APP VIEW ══════════ -->
+<main class="app-view" id="appView" style="display:none;">
+
+  <!-- ─── VIKALPA TAB ─── -->
+  <section class="tab-section" id="view-vikalpa">
+    <div class="shloka-block neu reveal">
+      <p>Hita Ahara Vihara — right food, right conduct, right medicine.</p>
+      <small>Charaka Samhita · Sutrasthana 11.3</small>
+    </div>
+
+    <h2 class="section-title">Consult the Digital Vaidya</h2>
+    <p class="section-sub">Describe your mind and body freely — Claude AI will craft your personalised four-pillar Ayurvedic prescription, grounded in classical texts and modern clinical evidence.</p>
+
+    <div class="chat-shell neu reveal" id="chatShell">
+      <!-- Chat Header -->
+      <div class="chat-header">
+        <div class="chat-avatar">🧘</div>
+        <div class="chat-meta">
+          <div class="chat-name">Digital Vaidya</div>
+          <div class="chat-status">
+            <span class="status-dot"></span>
+            <span id="chatStatusText">Claude AI · Available Always</span>
+          </div>
+        </div>
+        <div class="chat-sattva" id="sattvaChatBadge">✦ 0 Sattva</div>
+      </div>
+
+      <!-- Messages -->
+      <div class="chat-messages" id="msgs">
+        <div class="msg msg-ai">
+          <div class="msg-label">Digital Vaidya</div>
+          <div class="msg-bubble">
+            Namaste 🙏 I am your Digital Vaidya, powered by Claude AI and drawing from 5,000 years of Ayurvedic wisdom. Describe how you feel — your mind, your body, your emotional state. Speak freely, and I shall give you your personalised four-pillar prescription.
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Tips -->
+      <div class="quick-tips" id="quickTips">
+        <button class="quick-tip" data-tip="I feel anxious, restless and can't sleep at night">I feel anxious and restless</button>
+        <button class="quick-tip" data-tip="I feel heavy, foggy, unmotivated and lethargic">Heavy, foggy and unmotivated</button>
+        <button class="quick-tip" data-tip="I feel irritable, overheated, burned out and frustrated">Irritable and burnt out</button>
+        <button class="quick-tip" data-tip="My mind is racing and I cannot sleep. I feel overwhelmed with worry">Can't sleep, mind racing</button>
+      </div>
+
+      <!-- Input -->
+      <div class="chat-footer">
+        <div class="input-row">
+          <textarea class="neu-input" id="chatInput" rows="2"
+            placeholder="Describe how you feel — be as specific as you wish…"></textarea>
+          <button class="send-btn" id="sendBtn">Ask&nbsp;Vaidya</button>
+        </div>
+        <div class="ai-credit">
+          <span class="ai-dot"></span>
+          Powered by Claude AI (claude-sonnet-4-20250514) via Flask backend
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── RAGA TAB ─── -->
+  <section class="tab-section" id="view-raga" style="display:none;">
+    <div class="shloka-block neu reveal">
+      <p>Nada Brahma — the universe is sound. Raga is medicine for the soul.</p>
+      <small>Gandharva Veda · Raga Chikitsa</small>
+    </div>
+    <h2 class="section-title">The Raga Prescription Matrix</h2>
+    <p class="section-sub">Thirteen classical ragas — each a melodic medicine matched to time, dosha, and emotional rasa. Click any raga to consult the AI Vaidya.</p>
+    <div class="raga-grid reveal" id="ragaGrid">
+      <div class="loading-msg">Loading ragas…</div>
+    </div>
+  </section>
+
+  <!-- ─── DHARANA TAB ─── -->
+  <section class="tab-section" id="view-dharana" style="display:none;">
+    <div class="shloka-block neu reveal">
+      <p>Aushadhi — medicine as a vessel of grace, nourishing both body and soul.</p>
+      <small>Ashtanga Hridayam · Sutrasthana</small>
+    </div>
+    <h2 class="section-title">The Herbal Pharmacopoeia</h2>
+    <p class="section-sub">Rasayana herbs validated by Charaka Samhita and modern peer-reviewed research. Click any herb for a deep AI consultation.</p>
+    <div class="card-grid reveal" id="herbGrid">
+      <div class="loading-msg">Loading herbs…</div>
+    </div>
+
+    <h3 class="subsection-title reveal">Pranayama &amp; Mudra</h3>
+    <p class="section-sub reveal">Breath practices validated by clinical and fMRI studies.</p>
+    <div class="pranayama-grid reveal" id="pranayamaGrid">
+      <div class="loading-msg">Loading practices…</div>
+    </div>
+  </section>
+
+  <!-- ─── SADHANA / LEELA TAB ─── -->
+  <section class="tab-section" id="view-sadhana" style="display:none;">
+    <div class="shloka-block neu reveal">
+      <p>Leela — the divine play of consciousness, navigating virtue and ignorance toward liberation.</p>
+      <small>Samkhya Philosophy · Ancient Board Game Tradition</small>
+    </div>
+    <h2 class="section-title" style="text-align:center;">Leela — The Maze of the Mind</h2>
+    <p class="section-sub" style="text-align:center;margin:0 auto 32px;max-width:560px;">
+      Navigate 72 squares of the Samkhya consciousness board. Virtues lift you. Doshas descend. Liberation awaits at Moksha.
+    </p>
+
+    <div class="leela-wrap reveal">
+      <div class="game-board" id="leelaBoard"></div>
+      <div class="board-legend">
+        <div class="legend-item"><div class="legend-dot l-ladder"></div>Ladder (Virtue)</div>
+        <div class="legend-item"><div class="legend-dot l-snake"></div>Snake (Flaw)</div>
+        <div class="legend-item"><div class="legend-dot l-special"></div>Sacred Square</div>
+      </div>
+      <div class="game-controls">
+        <div class="dice-box" id="diceBox">—</div>
+        <button class="roll-btn" id="rollBtn">🎲 Roll the Dice</button>
+        <div class="game-msg" id="gameMsg">Begin your journey toward Moksha</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ══════════ MODAL ══════════ -->
+<div class="modal-overlay" id="modal">
+  <div class="modal-box neu">
+    <div class="modal-icon" id="modalIcon">✦</div>
+    <h2 class="modal-title" id="modalTitle">Milestone</h2>
+    <p class="modal-text" id="modalText"></p>
+    <p class="modal-sattva" id="modalSattva"></p>
+    <button class="modal-btn" id="modalCloseBtn">Continue the Path</button>
+  </div>
+</div>
+
+<!-- ══════════ HELP FAB ══════════ -->
+<button class="help-fab" id="helpFab" title="Safe Exit &amp; Support">🌿</button>
+
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
