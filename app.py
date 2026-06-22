@@ -310,7 +310,7 @@ def classify():
 def health():
     return jsonify({
         "status": "ok",
-        "claude_configured": bool(GEMINI_API_KEY),
+        "gemini_configured": bool(GEMINI_API_KEY),
         "model": "gemini-2.5-flash"
     })
 

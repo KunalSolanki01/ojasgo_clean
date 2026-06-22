@@ -67,7 +67,7 @@ async function checkApiHealth() {
     const data = await res.json();
     const dot = $("apiDot");
     const txt = $("apiStatusText");
-    if (data.claude_configured) {
+    if (data.gemini_configured) {
       dot.className = "api-dot ok";
       txt.textContent = "Gemini AI connected · gemini-2.5-flash";
     } else {
