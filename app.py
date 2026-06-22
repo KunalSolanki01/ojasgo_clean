@@ -4,20 +4,18 @@ Flask Backend Application
 """
 
 import os
-import json
 import re
 from flask import Flask, render_template, request, jsonify, session
 from dotenv import load_dotenv
-import urllib.request
-import urllib.error
+from google import genai
 
 load_dotenv()
 
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY", "ojasgo-secret-2026-ayurveda")
 
-ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY", "")
-CLAUDE_MODEL = "claude-sonnet-4-20250514"
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
+gemini_client = genai.Client(api_key=GEMINI_API_KEY) if GEMINI_API_KEY else None
 
 # ─────────────────────────────────────────────
 # AYURVEDIC KNOWLEDGE BASE
@@ -228,36 +226,16 @@ Keep it practical, scientifically grounded and warm. 2-3 focused paragraphs.""",
 Be specific, clinically referenced, and practically useful."""
 }
 
-def call_claude(user_message, prompt_type="vaidya"):
-    if not ANTHROPIC_API_KEY:
+def call_gemini(user_message, prompt_type="vaidya"):
+    if not gemini_client:
         return None, "No API key configured"
-
     system = SYSTEM_PROMPTS.get(prompt_type, SYSTEM_PROMPTS["vaidya"])
-    payload = json.dumps({
-        "model": CLAUDE_MODEL,
-        "max_tokens": 1200,
-        "system": system,
-        "messages": [{"role": "user", "content": user_message}]
-    }).encode("utf-8")
-
-    req = urllib.request.Request(
-        "https://api.anthropic.com/v1/messages",
-        data=payload,
-        headers={
-            "Content-Type": "application/json",
-            "x-api-key": ANTHROPIC_API_KEY,
-            "anthropic-version": "2023-06-01"
-        },
-        method="POST"
-    )
     try:
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            data = json.loads(resp.read().decode("utf-8"))
-            text = data.get("content", [{}])[0].get("text", "")
-            return text, None
-    except urllib.error.HTTPError as e:
-        err = json.loads(e.read().decode("utf-8"))
-        return None, err.get("error", {}).get("message", str(e))
+        response = gemini_client.models.generate_content(
+            model="gemini-2.5-flash",
+            contents=f"{system}\n\nUser: {user_message}"
+        )
+        return response.text, None
     except Exception as e:
         return None, str(e)
 
@@ -279,13 +257,13 @@ def chat():
     if not message:
         return jsonify({"error": "Empty message"}), 400
 
-    # Try Claude AI first
-    ai_text, err = call_claude(message, prompt_type)
+    # Try Gemini AI first
+    ai_text, err = call_gemini(message, prompt_type)
 
     if ai_text:
         return jsonify({
             "response": ai_text,
-            "source": "claude",
+            "source": "gemini",
             "sattva": 10
         })
     else:
@@ -332,8 +310,8 @@ def classify():
 def health():
     return jsonify({
         "status": "ok",
-        "claude_configured": bool(ANTHROPIC_API_KEY),
-        "model": CLAUDE_MODEL
+        "claude_configured": bool(GEMINI_API_KEY),
+        "model": "gemini-2.5-flash"
     })
 
 

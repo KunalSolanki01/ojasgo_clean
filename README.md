@@ -1,6 +1,6 @@
 # 🌿 OjasGo — Ayurvedic AI Sanctuary
 
-> A full-stack Ayurvedic AI web application built with **Flask** + **Claude AI (Anthropic)**  
+> A full-stack Ayurvedic AI web application built with **Flask** + **Gemini AI (Google)**  
 > Neumorphic design · 4-Pillar Protocol · 13 Ragas · Leela Board Game
 
 ---
@@ -36,10 +36,10 @@ pip install -r requirements.txt
 ### 2. Configure your API key
 ```bash
 cp .env.example .env
-# Edit .env and set your ANTHROPIC_API_KEY
+# Edit .env and set your GEMINI_API_KEY
 ```
 
-Get your free API key at: **https://console.anthropic.com**
+Get your free API key at: **https://aistudio.google.com/apikey**
 
 ### 3. Run the Flask server
 ```bash
@@ -57,11 +57,11 @@ http://localhost:5000
 
 | Variable | Description | Required |
 |----------|-------------|----------|
-| `ANTHROPIC_API_KEY` | Your Anthropic API key | Yes (for Claude AI) |
+| `GEMINI_API_KEY` | Your Google Gemini API key | Yes (for Gemini AI) |
 | `SECRET_KEY` | Flask session secret | Yes (change in production) |
 | `FLASK_ENV` | `development` or `production` | Optional |
 
-> **Note:** The app works WITHOUT a Claude API key using the built-in Ayurvedic keyword classifier as a fallback.
+> **Note:** The app works WITHOUT a Gemini API key using the built-in Ayurvedic keyword classifier as a fallback.
 
 ---
 
@@ -70,7 +70,7 @@ http://localhost:5000
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | `GET`  | `/`               | Main application page |
-| `POST` | `/api/chat`       | Claude AI consultation |
+| `POST` | `/api/chat`       | Gemini AI consultation |
 | `GET`  | `/api/data/ragas` | All 13 raga prescriptions |
 | `GET`  | `/api/data/herbs` | Herbal pharmacopoeia |
 | `GET`  | `/api/data/pranayamas` | Pranayama & mudra data |
@@ -91,7 +91,7 @@ http://localhost:5000
 ```json
 {
   "response": "🔮 PILLAR I — VIKALPA\n...",
-  "source": "claude",
+  "source": "gemini",
   "sattva": 10
 }
 ```
@@ -103,7 +103,7 @@ http://localhost:5000
 ```
 User Input (free text)
         ↓
-  [Vikalpa] — Dosha Classification (Claude AI)
+  [Vikalpa] — Dosha Classification (Gemini AI)
   ↓
   [Raga] — Sound Therapy Prescription
   ↓
@@ -119,7 +119,7 @@ User Input (free text)
 | Layer | Technology |
 |-------|------------|
 | Backend | Python 3.12 + Flask 3.x |
-| AI | Claude AI (claude-sonnet-4-20250514) via Anthropic API |
+| AI | Gemini AI (gemini-2.5-flash) via Google GenAI API |
 | Frontend | Vanilla JS (ES6+) + HTML5 + CSS3 |
 | Design | Neumorphic CSS design system |
 | Fonts | Playfair Display + Inter + Cinzel |

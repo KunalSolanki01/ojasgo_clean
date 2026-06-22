@@ -69,10 +69,10 @@ async function checkApiHealth() {
     const txt = $("apiStatusText");
     if (data.claude_configured) {
       dot.className = "api-dot ok";
-      txt.textContent = "Claude AI connected · claude-sonnet-4-20250514";
+      txt.textContent = "Gemini AI connected · gemini-2.5-flash";
     } else {
       dot.className = "api-dot warn";
-      txt.textContent = "Claude AI key not set — using local fallback engine";
+      txt.textContent = "Gemini AI key not set — using local fallback engine";
     }
   } catch {
     $("apiDot").className = "api-dot error";
