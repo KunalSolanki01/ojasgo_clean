@@ -176,7 +176,7 @@ def classify_dosha(text):
 
 
 # ─────────────────────────────────────────────
-# CLAUDE API CALLER
+# GEMINI API CALLER
 # ─────────────────────────────────────────────
 
 SYSTEM_PROMPTS = {

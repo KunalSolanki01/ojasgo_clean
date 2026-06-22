@@ -172,7 +172,7 @@ async function sendMessage() {
     addSattva(data.sattva || 10);
 
     if (data.source === "fallback") {
-      addBubble("ai", `<em style="font-size:.8rem;opacity:.7">Note: Claude AI unavailable — using local Ayurvedic classifier.</em>`, "", true);
+      addBubble("ai", `<em style="font-size:.8rem;opacity:.7">Note: Gemini AI unavailable — using local Ayurvedic classifier.</em>`, "", true);
     }
   } catch (err) {
     $(loadId)?.remove();
